@@ -45,8 +45,32 @@ def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
 
 
 def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chunk_size=180):
-    start = datetime.strptime(start_date, '%Y-%m-%d')
-    end = datetime.strptime(end_date, '%Y-%m-%d')
+    # 修正日期輸入檢查
+    try:
+        start = datetime.strptime(start_date, '%Y-%m-%d')
+    except ValueError:
+        print(f"起始日期 {start_date} 無效，請重新輸入")
+        return
+    try:
+        end = datetime.strptime(end_date, '%Y-%m-%d')
+    except ValueError:
+        # 若日期無效，自動調整為該月最後一天
+        year, month, _ = map(int, end_date.split('-'))
+        import calendar
+        last_day = calendar.monthrange(year, month)[1]
+        end_date = f"{year:04d}-{month:02d}-{last_day:02d}"
+        end = datetime.strptime(end_date, '%Y-%m-%d')
+        print(f"結束日期無效，已自動調整為 {end_date}")
+
+    # 先讀取現有 CSV 資料
+    csv_path = f'data_csv/{symbol}.csv'
+    if os.path.exists(csv_path):
+        existing_df = pd.read_csv(csv_path, parse_dates=['date'])
+        existing_dates = set(existing_df['date'].dt.strftime('%Y-%m-%d'))
+    else:
+        existing_df = None
+        existing_dates = set()
+
     current = start
     all_df = []
     while current < end:
@@ -56,30 +80,39 @@ def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chu
         try:
             df = get_stock_data(symbol, chunk_start_str, chunk_end_str)
             if not df.empty:
-                all_df.append(df)
-                print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 完成，共 {len(df)} 筆")
+                # 僅保留尚未存在的日期
+                df = df[~df['date'].isin(existing_dates)]
+                if not df.empty:
+                    all_df.append(df)
+                    print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 補齊 {len(df)} 筆")
+                else:
+                    print(f"{symbol}：{chunk_start_str} ~ {chunk_end_str} 已存在，略過")
             else:
                 print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 無資料")
         except Exception as e:
             print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 發生錯誤：{e}")
         time.sleep(download_delay)
         current = chunk_end
+    # 合併新舊資料
     if all_df:
-        result_df = pd.concat(all_df).drop_duplicates(subset=['date']).sort_values('date')
+        new_df = pd.concat(all_df) if len(all_df) > 1 else all_df[0]
+        if existing_df is not None:
+            result_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['date']).sort_values('date')
+        else:
+            result_df = new_df.sort_values('date')
         # 儲存至 CSV
         os.makedirs('data_csv', exist_ok=True)
-        csv_path = f'data_csv/{symbol}.csv'
         result_df.to_csv(csv_path, index=False)
         # 儲存至 SQLite
         os.makedirs('database', exist_ok=True)
         db_path = 'database/stock_price.db'
         conn = sqlite3.connect(db_path)
-        result_df.set_index('date', inplace=True)
-        result_df.to_sql(symbol, conn, if_exists='replace', index=True)
+        result_df['date'] = result_df['date'].astype(str)  # 確保是純字串
+        result_df.to_sql(symbol, conn, if_exists='replace', index=False)  # 不要設 index
         conn.close()
-        print(f"{symbol} 全部下載完成，資料已儲存至 {csv_path} 與 {db_path}")
+        print(f"{symbol} 補齊下載完成，資料已合併儲存至 {csv_path} 與 {db_path}")
     else:
-        print(f"{symbol} 無任何資料下載")
+        print(f"{symbol} 指定區間皆已存在，無需下載")
 
 
 def load_stock_data(symbol, start_date, end_date, source='csv'):
