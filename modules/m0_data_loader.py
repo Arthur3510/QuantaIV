@@ -31,7 +31,7 @@ def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
             to=end
         )
         df = pd.DataFrame([{
-            'date': datetime.fromtimestamp(agg.timestamp / 1000),
+            'date': datetime.fromtimestamp(agg.timestamp / 1000).strftime('%Y-%m-%d'),
             'open': agg.open,
             'high': agg.high,
             'low': agg.low,
