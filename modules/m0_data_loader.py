@@ -1,4 +1,4 @@
-import yfinance as yf
+import requests
 import pandas as pd
 import sqlite3
 import os
@@ -6,9 +6,12 @@ from datetime import datetime, timedelta
 import time
 from concurrent.futures import ThreadPoolExecutor
 
+# 設定 polygon.io API Key
+POLYGON_API_KEY = "YOUR_POLYGON_API_KEY"  # 請替換為你的 API Key
+
 def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chunk_size=180):
     """
-    從 Yahoo Finance 下載股票資料並儲存至 CSV 與 SQLite 資料庫。
+    從 polygon.io 下載股票資料並儲存至 CSV 與 SQLite 資料庫。
     
     Args:
         symbol (str): 股票代碼
@@ -27,28 +30,36 @@ def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chu
         chunk_start_str = current.strftime('%Y-%m-%d')
         chunk_end_str = chunk_end.strftime('%Y-%m-%d')
         
-        # 下載資料
-        stock = yf.Ticker(symbol)
-        df = stock.history(start=chunk_start_str, end=chunk_end_str)
+        # 從 polygon.io 下載資料
+        url = f"https://api.polygon.io/v2/aggs/ticker/{symbol}/range/1/day/{chunk_start_str}/{chunk_end_str}?apiKey={POLYGON_API_KEY}"
+        response = requests.get(url)
+        data = response.json()
         
-        # 儲存至 CSV
-        csv_path = f'data_csv/{symbol}.csv'
-        os.makedirs('data_csv', exist_ok=True)
-        if os.path.exists(csv_path):
-            existing_df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
-            df = pd.concat([existing_df, df]).drop_duplicates()
-        df.to_csv(csv_path)
-        
-        # 儲存至 SQLite
-        db_path = 'database/stock_price.db'
-        os.makedirs('database', exist_ok=True)
-        conn = sqlite3.connect(db_path)
-        # 修正 Timestamp 型別錯誤
-        df.index = df.index.strftime('%Y-%m-%d')
-        df.to_sql(symbol, conn, if_exists='replace', index=True)
-        conn.close()
-        
-        print(f"資料已下載並儲存至 {csv_path} 與 {db_path}（{chunk_start_str} 至 {chunk_end_str}）")
+        if data['status'] == 'OK':
+            df = pd.DataFrame(data['results'])
+            df['date'] = pd.to_datetime(df['t'], unit='ms')
+            df.set_index('date', inplace=True)
+            df.drop('t', axis=1, inplace=True)
+            
+            # 儲存至 CSV
+            csv_path = f'data_csv/{symbol}.csv'
+            os.makedirs('data_csv', exist_ok=True)
+            if os.path.exists(csv_path):
+                existing_df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
+                df = pd.concat([existing_df, df]).drop_duplicates()
+            df.to_csv(csv_path)
+            
+            # 儲存至 SQLite
+            db_path = 'database/stock_price.db'
+            os.makedirs('database', exist_ok=True)
+            conn = sqlite3.connect(db_path)
+            df.index = df.index.strftime('%Y-%m-%d')
+            df.to_sql(symbol, conn, if_exists='replace', index=True)
+            conn.close()
+            
+            print(f"資料已下載並儲存至 {csv_path} 與 {db_path}（{chunk_start_str} 至 {chunk_end_str}）")
+        else:
+            print(f"下載失敗：{data['status']}")
         
         # 下載延遲
         time.sleep(download_delay)
