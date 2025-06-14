@@ -43,6 +43,8 @@ def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chu
         db_path = 'database/stock_price.db'
         os.makedirs('database', exist_ok=True)
         conn = sqlite3.connect(db_path)
+        # 修正 Timestamp 型別錯誤
+        df.index = df.index.strftime('%Y-%m-%d')
         df.to_sql(symbol, conn, if_exists='replace', index=True)
         conn.close()
         
@@ -85,7 +87,14 @@ def load_stock_data(symbol, start_date, end_date, source='csv'):
     return df
 
 if __name__ == "__main__":
-    # 範例使用
-    download_stock_data('AAPL', '2023-01-01', '2023-12-31')
-    df = load_stock_data('AAPL', '2023-01-01', '2023-12-31', source='csv')
+    # 選單讓使用者填寫下載參數
+    print("【M0 資料載入模組】")
+    symbol = input("請輸入股票代碼（例如 AAPL）：")
+    start_date = input("請輸入起始日期（格式：YYYY-MM-DD）：")
+    end_date = input("請輸入結束日期（格式：YYYY-MM-DD）：")
+    download_delay = int(input("請輸入下載延遲秒數（預設：2）：") or "2")
+    date_chunk_size = int(input("請輸入時間切段大小（天數，預設：180）：") or "180")
+    
+    download_stock_data(symbol, start_date, end_date, download_delay, date_chunk_size)
+    df = load_stock_data(symbol, start_date, end_date, source='csv')
     print(df.head()) 
