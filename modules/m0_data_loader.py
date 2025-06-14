@@ -17,22 +17,26 @@ def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
     client = RESTClient(api_key=POLYGON_API_KEY)
     start = datetime.strptime(start_date, "%Y-%m-%d")
     end = datetime.strptime(end_date, "%Y-%m-%d")
-    aggs = client.get_aggs(
-        ticker=ticker,
-        multiplier=1,
-        timespan="day",
-        from_=start,
-        to=end
-    )
-    df = pd.DataFrame([{
-        'date': datetime.fromtimestamp(agg.timestamp / 1000),
-        'open': agg.open,
-        'high': agg.high,
-        'low': agg.low,
-        'close': agg.close,
-        'volume': agg.volume
-    } for agg in aggs])
-    return df
+    try:
+        aggs = client.get_aggs(
+            ticker=ticker,
+            multiplier=1,
+            timespan="day",
+            from_=start,
+            to=end
+        )
+        df = pd.DataFrame([{
+            'date': datetime.fromtimestamp(agg.timestamp / 1000),
+            'open': agg.open,
+            'high': agg.high,
+            'low': agg.low,
+            'close': agg.close,
+            'volume': agg.volume
+        } for agg in aggs])
+        return df
+    except Exception as e:
+        print(f"下載 {ticker}：{start_date} ~ {end_date} 發生錯誤：{e}")
+        return pd.DataFrame()
 
 
 def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chunk_size=180):
