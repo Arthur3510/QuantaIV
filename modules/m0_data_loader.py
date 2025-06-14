@@ -9,7 +9,8 @@ import time
 # 載入環境變數
 load_dotenv()
 
-POLYGON_API_KEY = os.getenv("POLYGON_API_KEY")
+# 若 .env 未設定，則使用硬編碼的 API Key
+POLYGON_API_KEY = os.getenv("POLYGON_API_KEY") or "YOUR_POLYGON_API_KEY"  # 請替換為你的 API Key
 
 
 def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
