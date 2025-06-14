@@ -9,8 +9,13 @@ import time
 # 載入環境變數
 load_dotenv()
 
-# 若 .env 未設定，則使用硬編碼的 API Key
-POLYGON_API_KEY = os.getenv("POLYGON_API_KEY") or "YOUR_POLYGON_API_KEY"  # 請替換為你的 API Key
+# 從 docs/Polygon.io/polygon API Key.txt 讀取 API Key
+api_key_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs', 'Polygon.io', 'polygon API Key.txt')
+if os.path.exists(api_key_path):
+    with open(api_key_path, 'r') as f:
+        POLYGON_API_KEY = f.read().strip()
+else:
+    POLYGON_API_KEY = os.getenv("POLYGON_API_KEY") or "YOUR_POLYGON_API_KEY"  # 請替換為你的 API Key
 
 
 def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
