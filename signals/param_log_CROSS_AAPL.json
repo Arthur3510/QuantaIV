@@ -1,0 +1,602 @@
+[
+  {
+    "fast": 5,
+    "slow": 20,
+    "signal": 0,
+    "param_id": "CROSS_b092bb90"
+  },
+  {
+    "fast": 5,
+    "slow": 20,
+    "signal": 1,
+    "param_id": "CROSS_b476512b"
+  },
+  {
+    "fast": 5,
+    "slow": 21,
+    "signal": 0,
+    "param_id": "CROSS_8a08b670"
+  },
+  {
+    "fast": 5,
+    "slow": 21,
+    "signal": 1,
+    "param_id": "CROSS_f4de9f59"
+  },
+  {
+    "fast": 5,
+    "slow": 22,
+    "signal": 0,
+    "param_id": "CROSS_26f88c15"
+  },
+  {
+    "fast": 5,
+    "slow": 22,
+    "signal": 1,
+    "param_id": "CROSS_c2ab62d5"
+  },
+  {
+    "fast": 5,
+    "slow": 23,
+    "signal": 0,
+    "param_id": "CROSS_91137e1e"
+  },
+  {
+    "fast": 5,
+    "slow": 23,
+    "signal": 1,
+    "param_id": "CROSS_9b337831"
+  },
+  {
+    "fast": 5,
+    "slow": 24,
+    "signal": 0,
+    "param_id": "CROSS_c77e4379"
+  },
+  {
+    "fast": 5,
+    "slow": 24,
+    "signal": 1,
+    "param_id": "CROSS_11687d99"
+  },
+  {
+    "fast": 5,
+    "slow": 25,
+    "signal": 0,
+    "param_id": "CROSS_2545122c"
+  },
+  {
+    "fast": 5,
+    "slow": 25,
+    "signal": 1,
+    "param_id": "CROSS_8ddacf11"
+  },
+  {
+    "fast": 5,
+    "slow": 26,
+    "signal": 0,
+    "param_id": "CROSS_8d3b767d"
+  },
+  {
+    "fast": 5,
+    "slow": 26,
+    "signal": 1,
+    "param_id": "CROSS_c06e52f0"
+  },
+  {
+    "fast": 5,
+    "slow": 27,
+    "signal": 0,
+    "param_id": "CROSS_14e451c3"
+  },
+  {
+    "fast": 5,
+    "slow": 27,
+    "signal": 1,
+    "param_id": "CROSS_1907def8"
+  },
+  {
+    "fast": 5,
+    "slow": 28,
+    "signal": 0,
+    "param_id": "CROSS_b6f59e48"
+  },
+  {
+    "fast": 5,
+    "slow": 28,
+    "signal": 1,
+    "param_id": "CROSS_f01ac24b"
+  },
+  {
+    "fast": 5,
+    "slow": 29,
+    "signal": 0,
+    "param_id": "CROSS_ebb4f3c0"
+  },
+  {
+    "fast": 5,
+    "slow": 29,
+    "signal": 1,
+    "param_id": "CROSS_fa4d8919"
+  },
+  {
+    "fast": 5,
+    "slow": 30,
+    "signal": 0,
+    "param_id": "CROSS_226a34c4"
+  },
+  {
+    "fast": 5,
+    "slow": 30,
+    "signal": 1,
+    "param_id": "CROSS_188adb13"
+  },
+  {
+    "fast": 5,
+    "slow": 31,
+    "signal": 0,
+    "param_id": "CROSS_94439984"
+  },
+  {
+    "fast": 5,
+    "slow": 31,
+    "signal": 1,
+    "param_id": "CROSS_e4317ae5"
+  },
+  {
+    "fast": 5,
+    "slow": 32,
+    "signal": 0,
+    "param_id": "CROSS_d48b58bc"
+  },
+  {
+    "fast": 5,
+    "slow": 32,
+    "signal": 1,
+    "param_id": "CROSS_572525bd"
+  },
+  {
+    "fast": 5,
+    "slow": 33,
+    "signal": 0,
+    "param_id": "CROSS_9a1a362b"
+  },
+  {
+    "fast": 5,
+    "slow": 33,
+    "signal": 1,
+    "param_id": "CROSS_b60aa3ef"
+  },
+  {
+    "fast": 5,
+    "slow": 34,
+    "signal": 0,
+    "param_id": "CROSS_6aff47a8"
+  },
+  {
+    "fast": 5,
+    "slow": 34,
+    "signal": 1,
+    "param_id": "CROSS_41823213"
+  },
+  {
+    "fast": 5,
+    "slow": 35,
+    "signal": 0,
+    "param_id": "CROSS_c03de850"
+  },
+  {
+    "fast": 5,
+    "slow": 35,
+    "signal": 1,
+    "param_id": "CROSS_cf327079"
+  },
+  {
+    "fast": 5,
+    "slow": 36,
+    "signal": 0,
+    "param_id": "CROSS_979ac6ad"
+  },
+  {
+    "fast": 5,
+    "slow": 36,
+    "signal": 1,
+    "param_id": "CROSS_be0b3838"
+  },
+  {
+    "fast": 5,
+    "slow": 37,
+    "signal": 0,
+    "param_id": "CROSS_980d074c"
+  },
+  {
+    "fast": 5,
+    "slow": 37,
+    "signal": 1,
+    "param_id": "CROSS_471a6db3"
+  },
+  {
+    "fast": 5,
+    "slow": 38,
+    "signal": 0,
+    "param_id": "CROSS_6d849928"
+  },
+  {
+    "fast": 5,
+    "slow": 38,
+    "signal": 1,
+    "param_id": "CROSS_2e99a257"
+  },
+  {
+    "fast": 5,
+    "slow": 39,
+    "signal": 0,
+    "param_id": "CROSS_6c31624e"
+  },
+  {
+    "fast": 5,
+    "slow": 39,
+    "signal": 1,
+    "param_id": "CROSS_1f966c4c"
+  },
+  {
+    "fast": 5,
+    "slow": 40,
+    "signal": 0,
+    "param_id": "CROSS_3482602a"
+  },
+  {
+    "fast": 5,
+    "slow": 40,
+    "signal": 1,
+    "param_id": "CROSS_8ad0d8eb"
+  },
+  {
+    "fast": 5,
+    "slow": 41,
+    "signal": 0,
+    "param_id": "CROSS_9ce401e7"
+  },
+  {
+    "fast": 5,
+    "slow": 41,
+    "signal": 1,
+    "param_id": "CROSS_7cdd6319"
+  },
+  {
+    "fast": 5,
+    "slow": 42,
+    "signal": 0,
+    "param_id": "CROSS_b316c3d9"
+  },
+  {
+    "fast": 5,
+    "slow": 42,
+    "signal": 1,
+    "param_id": "CROSS_5de690a5"
+  },
+  {
+    "fast": 5,
+    "slow": 43,
+    "signal": 0,
+    "param_id": "CROSS_79fddd49"
+  },
+  {
+    "fast": 5,
+    "slow": 43,
+    "signal": 1,
+    "param_id": "CROSS_c0d9e7f5"
+  },
+  {
+    "fast": 5,
+    "slow": 44,
+    "signal": 0,
+    "param_id": "CROSS_8ebd9cef"
+  },
+  {
+    "fast": 5,
+    "slow": 44,
+    "signal": 1,
+    "param_id": "CROSS_53789d9e"
+  },
+  {
+    "fast": 5,
+    "slow": 45,
+    "signal": 0,
+    "param_id": "CROSS_ca71a775"
+  },
+  {
+    "fast": 5,
+    "slow": 45,
+    "signal": 1,
+    "param_id": "CROSS_4d94c34f"
+  },
+  {
+    "fast": 5,
+    "slow": 46,
+    "signal": 0,
+    "param_id": "CROSS_0a8a3750"
+  },
+  {
+    "fast": 5,
+    "slow": 46,
+    "signal": 1,
+    "param_id": "CROSS_4c89fa9e"
+  },
+  {
+    "fast": 5,
+    "slow": 47,
+    "signal": 0,
+    "param_id": "CROSS_e0cd29ac"
+  },
+  {
+    "fast": 5,
+    "slow": 47,
+    "signal": 1,
+    "param_id": "CROSS_63ce226e"
+  },
+  {
+    "fast": 5,
+    "slow": 48,
+    "signal": 0,
+    "param_id": "CROSS_d85f8eb7"
+  },
+  {
+    "fast": 5,
+    "slow": 48,
+    "signal": 1,
+    "param_id": "CROSS_775da86a"
+  },
+  {
+    "fast": 5,
+    "slow": 49,
+    "signal": 0,
+    "param_id": "CROSS_9d17586f"
+  },
+  {
+    "fast": 5,
+    "slow": 49,
+    "signal": 1,
+    "param_id": "CROSS_dd9bfefa"
+  },
+  {
+    "fast": 5,
+    "slow": 50,
+    "signal": 0,
+    "param_id": "CROSS_17a1a6f1"
+  },
+  {
+    "fast": 5,
+    "slow": 50,
+    "signal": 1,
+    "param_id": "CROSS_a2de8e46"
+  },
+  {
+    "fast": 5,
+    "slow": 51,
+    "signal": 0,
+    "param_id": "CROSS_cd05310f"
+  },
+  {
+    "fast": 5,
+    "slow": 51,
+    "signal": 1,
+    "param_id": "CROSS_07ff3557"
+  },
+  {
+    "fast": 5,
+    "slow": 52,
+    "signal": 0,
+    "param_id": "CROSS_fbf4f174"
+  },
+  {
+    "fast": 5,
+    "slow": 52,
+    "signal": 1,
+    "param_id": "CROSS_07eca422"
+  },
+  {
+    "fast": 5,
+    "slow": 53,
+    "signal": 0,
+    "param_id": "CROSS_a051d84d"
+  },
+  {
+    "fast": 5,
+    "slow": 53,
+    "signal": 1,
+    "param_id": "CROSS_b20f8edb"
+  },
+  {
+    "fast": 5,
+    "slow": 54,
+    "signal": 0,
+    "param_id": "CROSS_72ebe442"
+  },
+  {
+    "fast": 5,
+    "slow": 54,
+    "signal": 1,
+    "param_id": "CROSS_e26cb706"
+  },
+  {
+    "fast": 5,
+    "slow": 55,
+    "signal": 0,
+    "param_id": "CROSS_5003ecf6"
+  },
+  {
+    "fast": 5,
+    "slow": 55,
+    "signal": 1,
+    "param_id": "CROSS_06a65f73"
+  },
+  {
+    "fast": 5,
+    "slow": 56,
+    "signal": 0,
+    "param_id": "CROSS_7e6439a0"
+  },
+  {
+    "fast": 5,
+    "slow": 56,
+    "signal": 1,
+    "param_id": "CROSS_2516090e"
+  },
+  {
+    "fast": 5,
+    "slow": 57,
+    "signal": 0,
+    "param_id": "CROSS_4e81630c"
+  },
+  {
+    "fast": 5,
+    "slow": 57,
+    "signal": 1,
+    "param_id": "CROSS_ec46cb45"
+  },
+  {
+    "fast": 5,
+    "slow": 58,
+    "signal": 0,
+    "param_id": "CROSS_71b5b4e6"
+  },
+  {
+    "fast": 5,
+    "slow": 58,
+    "signal": 1,
+    "param_id": "CROSS_0584ed69"
+  },
+  {
+    "fast": 5,
+    "slow": 59,
+    "signal": 0,
+    "param_id": "CROSS_894f5083"
+  },
+  {
+    "fast": 5,
+    "slow": 59,
+    "signal": 1,
+    "param_id": "CROSS_d29252d5"
+  },
+  {
+    "fast": 5,
+    "slow": 60,
+    "signal": 0,
+    "param_id": "CROSS_f498c7b5"
+  },
+  {
+    "fast": 5,
+    "slow": 60,
+    "signal": 1,
+    "param_id": "CROSS_c6b19823"
+  },
+  {
+    "fast": 6,
+    "slow": 20,
+    "signal": 0,
+    "param_id": "CROSS_656e7922"
+  },
+  {
+    "fast": 6,
+    "slow": 20,
+    "signal": 1,
+    "param_id": "CROSS_3926233d"
+  },
+  {
+    "fast": 6,
+    "slow": 21,
+    "signal": 0,
+    "param_id": "CROSS_5fbe131e"
+  },
+  {
+    "fast": 6,
+    "slow": 21,
+    "signal": 1,
+    "param_id": "CROSS_45028455"
+  },
+  {
+    "fast": 6,
+    "slow": 22,
+    "signal": 0,
+    "param_id": "CROSS_e18bb8ad"
+  },
+  {
+    "fast": 6,
+    "slow": 22,
+    "signal": 1,
+    "param_id": "CROSS_072c4090"
+  },
+  {
+    "fast": 6,
+    "slow": 23,
+    "signal": 0,
+    "param_id": "CROSS_32c6554b"
+  },
+  {
+    "fast": 6,
+    "slow": 23,
+    "signal": 1,
+    "param_id": "CROSS_1f582d1c"
+  },
+  {
+    "fast": 6,
+    "slow": 24,
+    "signal": 0,
+    "param_id": "CROSS_5790cc4e"
+  },
+  {
+    "fast": 6,
+    "slow": 24,
+    "signal": 1,
+    "param_id": "CROSS_7c0047cb"
+  },
+  {
+    "fast": 6,
+    "slow": 25,
+    "signal": 0,
+    "param_id": "CROSS_64ced793"
+  },
+  {
+    "fast": 6,
+    "slow": 25,
+    "signal": 1,
+    "param_id": "CROSS_74b7943b"
+  },
+  {
+    "fast": 6,
+    "slow": 26,
+    "signal": 0,
+    "param_id": "CROSS_ec7d8f9c"
+  },
+  {
+    "fast": 6,
+    "slow": 26,
+    "signal": 1,
+    "param_id": "CROSS_31da7054"
+  },
+  {
+    "fast": 6,
+    "slow": 27,
+    "signal": 0,
+    "param_id": "CROSS_807d35b0"
+  },
+  {
+    "fast": 6,
+    "slow": 27,
+    "signal": 1,
+    "param_id": "CROSS_3d323107"
+  },
+  {
+    "fast": 6,
+    "slow": 28,
+    "signal": 0,
+    "param_id": "CROSS_a046e00e"
+  },
+  {
+    "fast": 6,
+    "slow": 28,
+    "signal": 1,
+    "param_id": "CROSS_0edeb4ef"
+  }
+]

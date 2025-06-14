@@ -2,6 +2,9 @@ import os
 import sys
 from modules.m0_data_loader import download_stock_data, load_stock_data
 
+# 新增：M1 參數生成模組
+from modules.m1_param_generator import main as m1_main
+
 def main():
     while True:
         print("\n【QuantaIII 主選單】")
@@ -29,7 +32,7 @@ def main():
             df = load_stock_data(symbol, start_date, end_date, source='csv')
             print(df.head())
         elif choice == "2":
-            print("M1 參數生成模組尚未開發")
+            m1_main()
         elif choice == "3":
             print("M2 回測模組尚未開發")
         elif choice == "4":
