@@ -38,11 +38,11 @@ def main():
         ascending = True
     else:
         ascending = False
-    user_asc = input(f'是否由小到大排序？(y/n, 預設{"y" if ascending else "n"})：').strip().lower()
-    if user_asc == 'y':
-        ascending = True
-    elif user_asc == 'n':
+    user_desc = input(f'是否由大到小排序？(y/n, 預設{"y" if not ascending else "n"})：').strip().lower()
+    if user_desc == 'y' or user_desc == '':
         ascending = False
+    elif user_desc == 'n':
+        ascending = True
     top_n = input('請輸入要保留的前N名策略（預設10）：').strip()
     top_n = int(top_n) if top_n.isdigit() else 10
     df_sorted = df.sort_values(by=sort_col, ascending=ascending).head(top_n)
