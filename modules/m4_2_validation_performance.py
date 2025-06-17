@@ -3,12 +3,8 @@ import pandas as pd
 from .m2_performance_from_signals_batch import calculate_performance
 
 def main():
-    mode = input('請選擇模式（in_sample/out_sample）：').strip()
-    if mode not in ['in_sample', 'out_sample']:
-        print('模式輸入錯誤，預設為 out_sample')
-        mode = 'out_sample'
-    signals_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'signals', mode)
-    perf_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'performance', mode)
+    signals_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'signals', 'out_sample')
+    perf_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'performance', 'out_sample')
     os.makedirs(perf_dir, exist_ok=True)
     files = [f for f in os.listdir(signals_dir) if f.endswith('.csv')]
     if not files:

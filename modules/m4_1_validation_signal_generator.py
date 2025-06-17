@@ -4,12 +4,8 @@ from .m2_signal_generator_batch import generate_signals_df
 from datetime import datetime
 
 def main():
-    mode = input('請選擇模式（in_sample/out_sample）：').strip()
-    if mode not in ['in_sample', 'out_sample']:
-        print('模式輸入錯誤，預設為 out_sample')
-        mode = 'out_sample'
-    strategies_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', mode, 'best')
-    signals_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'signals', mode)
+    strategies_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', 'in_sample', 'best')
+    signals_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'signals', 'out_sample')
     os.makedirs(signals_dir, exist_ok=True)
     files = [f for f in os.listdir(strategies_dir) if f.endswith('.csv') or f.endswith('.json')]
     files = [f for f in files if f.startswith('best_strategies_') or f.startswith('param_log_')]
