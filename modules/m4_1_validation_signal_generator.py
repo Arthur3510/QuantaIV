@@ -8,7 +8,7 @@ def main():
     if mode not in ['in_sample', 'out_sample']:
         print('模式輸入錯誤，預設為 out_sample')
         mode = 'out_sample'
-    strategies_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', 'in_sample')
+    strategies_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', mode, 'best')
     signals_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'signals', mode)
     os.makedirs(signals_dir, exist_ok=True)
     files = [f for f in os.listdir(strategies_dir) if f.endswith('.csv') or f.endswith('.json')]
@@ -31,7 +31,10 @@ def main():
     if strategy_file.endswith('.csv'):
         df = pd.read_csv(os.path.join(strategies_dir, strategy_file))
         param_list = df.to_dict(orient='records')
-        symbol = strategy_file.split('_')[-2]
+        if strategy_file.startswith('best_strategies_'):
+            symbol = strategy_file.replace('best_strategies_', '').split('_signals_all_params_')[0]
+        else:
+            symbol = strategy_file.split('_')[-2]
     else:
         import json
         with open(os.path.join(strategies_dir, strategy_file), 'r', encoding='utf-8') as f:
