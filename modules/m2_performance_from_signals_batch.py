@@ -20,19 +20,19 @@ def calc_sharpe_ratio(nav, risk_free_rate=0.0, freq=252):
 def calculate_performance(params, signals_dir):
     """根據單一參數組計算績效"""
     param_id = params.get('param_id', params.get('id', 'unknown'))
-    files = [f for f in os.listdir(signals_dir) if f'param_{param_id}' in f and f.endswith('.csv')]
-    if not files:
-        print(f'找不到 param_id={param_id} 的訊號檔案！')
-        return None
-    signal_file = files[-1]  # 使用最新的訊號檔案
-    df = pd.read_csv(os.path.join(signals_dir, signal_file))
-    if 'signal' not in df.columns or 'close' not in df.columns:
-        print('訊號檔案缺少必要欄位（signal, close）！')
-        return None
-    position = df['signal'].replace(0, np.nan).ffill().fillna(0)
+    if 'signal' not in params or 'close' not in params:
+        print(f'param_id={param_id} 的參數組缺少必要欄位（signal, close）！')
+        return {
+            'param_id': param_id,
+            'total_return': np.nan,
+            'max_drawdown': np.nan,
+            'sharpe': np.nan
+        }
+    
+    position = pd.Series(params['signal']).replace(0, np.nan).ffill().fillna(0)
     first_trade_idx = position.ne(0).idxmax()
     position = position.loc[first_trade_idx:]
-    close = df['close'].loc[first_trade_idx:]
+    close = pd.Series(params['close']).loc[first_trade_idx:]
     nav = (1 + position.shift().fillna(0) * close.pct_change()).cumprod().dropna()
     total_return = calc_total_return(nav.values)
     max_drawdown = calc_max_drawdown(nav.values)
