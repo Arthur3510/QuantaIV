@@ -2,14 +2,31 @@ import os
 import pandas as pd
 import json
 import glob
+from utils.version_manager import version_manager
 
 def main():
-    # 移除模式選擇，直接使用 in_sample
-    mode = 'in_sample'
-    perf_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'performance', mode)
-    strat_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', mode, 'best')
+    print("【M3 策略選擇模組】")
+    
+    # 檢查並取得當前版本
+    current_version = version_manager.get_current_version()
+    if not current_version:
+        print("⚠️ 沒有當前版本，請先執行 M1 建立版本")
+        return
+    
+    print(f"使用版本: {current_version}")
+    
+    # 使用版本化的目錄路徑
+    perf_dir = version_manager.get_version_path(current_version, "trading_performance")
+    strat_dir = version_manager.get_version_path(current_version, "in_sample_best")
+    
+    # 建立最佳策略目錄
     os.makedirs(strat_dir, exist_ok=True)
 
+    # 檢查績效檔案
+    if not os.path.exists(perf_dir):
+        print(f"版本目錄不存在: {perf_dir}")
+        return
+    
     # 更新檔案列表邏輯以匹配新的需求
     all_files = [f for f in os.listdir(perf_dir) if f.startswith('performance_') and f.endswith('_batch.csv')]
     if not all_files:
@@ -66,7 +83,8 @@ def main():
     
     out_file = os.path.join(strat_dir, f'best_strategies_{perf_file.replace("performance_", "")}')
     df_sorted.to_csv(out_file, index=False)
-    print(f'已篩選出前{top_n}名最佳策略，存檔於 {out_file}')
+    print(f'✅ 已篩選出前{top_n}名最佳策略')
+    print(f'📁 存檔於: {out_file}')
 
     # === 新增：自動複製 param log ===
     # 從最佳策略的 param_id 中推斷出 strategy_type (最可靠)
@@ -81,16 +99,16 @@ def main():
     # 找最後一個時間戳前的部分
     symbol = '_'.join(base_name.split('_')[:-2])
 
-
-    all_params_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', 'in_sample', 'all_params')
+    # 使用版本化的參數目錄
+    all_params_dir = version_manager.get_version_path(current_version, "in_sample_params")
     
     # 搜尋所有符合 param_log_{strategy_type}_{symbol}.json 的檔案
-    # 注意：這裡的檔名解析是 M1 和 M2-1 的約定
     param_log_filename = f'param_log_{strategy_type}_{symbol}.json'
     paramlog_src = os.path.join(all_params_dir, param_log_filename)
-
+    
     if os.path.exists(paramlog_src):
-        paramlog_dst_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', 'out_sample', 'param_logs')
+        # 使用版本化的樣本外參數目錄
+        paramlog_dst_dir = version_manager.get_version_path(current_version, "out_sample_params")
         os.makedirs(paramlog_dst_dir, exist_ok=True)
         # 保持原始檔名
         paramlog_dst = os.path.join(paramlog_dst_dir, os.path.basename(paramlog_src))
@@ -101,12 +119,16 @@ def main():
         # 只保留 best_strategies 裡的 param_id
         best_ids = set(df_sorted['param_id'])
         filtered_params = [p for p in all_params if p.get('id') in best_ids]
+        
         with open(paramlog_dst, 'w', encoding='utf-8') as f:
             json.dump(filtered_params, f, ensure_ascii=False, indent=2)
-        print(f'已自動複製並過濾 param log，存檔於 {paramlog_dst}')
+        
+        print(f'✅ 已自動複製並過濾 param log')
+        print(f'📁 存檔於: {paramlog_dst}')
+        print(f'📂 版本目錄: {current_version}')
         print('這份檔案可直接用於 M4-1 驗證區間批次訊號產生！')
     else:
-        print(f'找不到對應的 param log 檔案: {paramlog_src}')
+        print(f'❌ 找不到對應的 param log 檔案: {paramlog_src}')
 
 if __name__ == '__main__':
     main() 

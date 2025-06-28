@@ -18,6 +18,50 @@ else:
     POLYGON_API_KEY = os.getenv("POLYGON_API_KEY") or "YOUR_POLYGON_API_KEY"  # 請替換為你的 API Key
 
 
+def test_polygon_api():
+    """測試 Polygon API 的功能和限制"""
+    print("=== Polygon API 測試 ===")
+    client = RESTClient(api_key=POLYGON_API_KEY)
+    
+    # 測試最近的資料
+    print("1. 測試最近的資料 (2024-01-01 到 2024-01-31):")
+    try:
+        aggs = client.get_aggs(
+            ticker="AAPL",
+            multiplier=1,
+            timespan="day",
+            from_=datetime(2024, 1, 1),
+            to=datetime(2024, 1, 31)
+        )
+        print(f"   回傳 {len(aggs)} 筆資料")
+        if aggs:
+            first_date = datetime.fromtimestamp(aggs[0].timestamp / 1000).strftime('%Y-%m-%d')
+            last_date = datetime.fromtimestamp(aggs[-1].timestamp / 1000).strftime('%Y-%m-%d')
+            print(f"   日期範圍：{first_date} 到 {last_date}")
+    except Exception as e:
+        print(f"   錯誤：{e}")
+    
+    # 測試較舊的資料
+    print("2. 測試較舊的資料 (2023-01-01 到 2023-01-31):")
+    try:
+        aggs = client.get_aggs(
+            ticker="AAPL",
+            multiplier=1,
+            timespan="day",
+            from_=datetime(2023, 1, 1),
+            to=datetime(2023, 1, 31)
+        )
+        print(f"   回傳 {len(aggs)} 筆資料")
+        if aggs:
+            first_date = datetime.fromtimestamp(aggs[0].timestamp / 1000).strftime('%Y-%m-%d')
+            last_date = datetime.fromtimestamp(aggs[-1].timestamp / 1000).strftime('%Y-%m-%d')
+            print(f"   日期範圍：{first_date} 到 {last_date}")
+    except Exception as e:
+        print(f"   錯誤：{e}")
+    
+    print("=== 測試完成 ===")
+
+
 def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
     client = RESTClient(api_key=POLYGON_API_KEY)
     start = datetime.strptime(start_date, "%Y-%m-%d")
@@ -30,6 +74,10 @@ def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
             from_=start,
             to=end
         )
+        
+        if not aggs:
+            return pd.DataFrame()
+            
         df = pd.DataFrame([{
             'date': datetime.fromtimestamp(agg.timestamp / 1000).strftime('%Y-%m-%d'),
             'open': agg.open,
@@ -38,6 +86,7 @@ def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
             'close': agg.close,
             'volume': agg.volume
         } for agg in aggs])
+        
         return df
     except Exception as e:
         print(f"下載 {ticker}：{start_date} ~ {end_date} 發生錯誤：{e}")
@@ -67,36 +116,77 @@ def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chu
     if os.path.exists(csv_path):
         existing_df = pd.read_csv(csv_path, parse_dates=['date'])
         existing_dates = set(existing_df['date'].dt.strftime('%Y-%m-%d'))
+        print(f"現有資料日期範圍：{existing_df['date'].min()} 到 {existing_df['date'].max()}")
+        print(f"現有資料筆數：{len(existing_df)}")
     else:
         existing_df = None
         existing_dates = set()
+        print("無現有資料檔案")
 
+    # 生成請求的日期範圍
+    requested_dates = set()
+    current_date = start
+    while current_date <= end:
+        requested_dates.add(current_date.strftime('%Y-%m-%d'))
+        current_date += timedelta(days=1)
+    
+    # 找出缺失的日期
+    missing_dates = requested_dates - existing_dates
+    if not missing_dates:
+        print(f"{symbol} 在 {start_date} 到 {end_date} 期間的所有資料都已存在")
+        return
+    
+    print(f"需要下載的日期數量：{len(missing_dates)}")
+    print(f"缺失日期範圍：{min(missing_dates)} 到 {max(missing_dates)}")
+
+    # 按時間區間下載缺失的資料
     current = start
     all_df = []
-    while current < end:
-        chunk_end = min(current + timedelta(days=date_chunk_size), end)
+    
+    # 使用更小的時間區間來避免 API 限制
+    chunk_size = min(date_chunk_size, 30)  # 限制最大區間為 30 天
+    
+    while current <= end:
+        chunk_end = min(current + timedelta(days=chunk_size-1), end)
         chunk_start_str = current.strftime('%Y-%m-%d')
         chunk_end_str = chunk_end.strftime('%Y-%m-%d')
-        try:
-            df = get_stock_data(symbol, chunk_start_str, chunk_end_str)
-            if not df.empty:
-                # 僅保留尚未存在的日期
-                df = df[~df['date'].isin(existing_dates)]
+        
+        # 檢查這個區間是否有缺失的日期
+        chunk_dates = set()
+        temp_date = current
+        while temp_date <= chunk_end:
+            chunk_dates.add(temp_date.strftime('%Y-%m-%d'))
+            temp_date += timedelta(days=1)
+        
+        missing_in_chunk = chunk_dates & missing_dates
+        
+        if missing_in_chunk:
+            try:
+                df = get_stock_data(symbol, chunk_start_str, chunk_end_str)
                 if not df.empty:
-                    all_df.append(df)
-                    print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 補齊 {len(df)} 筆")
+                    # 只保留真正缺失的日期
+                    df = df[df['date'].isin(missing_dates)]
+                    if not df.empty:
+                        all_df.append(df)
+                        print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 補齊 {len(df)} 筆")
+                    else:
+                        print(f"{symbol}：{chunk_start_str} ~ {chunk_end_str} 無新資料")
                 else:
-                    print(f"{symbol}：{chunk_start_str} ~ {chunk_end_str} 已存在，略過")
-            else:
-                print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 無資料")
-        except Exception as e:
-            print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 發生錯誤：{e}")
+                    print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 無資料")
+            except Exception as e:
+                print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 發生錯誤：{e}")
+        else:
+            print(f"{symbol}：{chunk_start_str} ~ {chunk_end_str} 已存在，略過")
+        
         time.sleep(download_delay)
-        current = chunk_end
+        current = chunk_end + timedelta(days=1)
+    
     # 合併新舊資料
     if all_df:
         new_df = pd.concat(all_df) if len(all_df) > 1 else all_df[0]
+        new_df['date'] = pd.to_datetime(new_df['date'])  # 確保新資料的日期格式正確
         if existing_df is not None:
+            existing_df['date'] = pd.to_datetime(existing_df['date']) # 確保舊資料的日期格式正確
             result_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['date']).sort_values('date')
         else:
             result_df = new_df.sort_values('date')
@@ -111,6 +201,7 @@ def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chu
         result_df.to_sql(symbol, conn, if_exists='replace', index=False)  # 不要設 index
         conn.close()
         print(f"{symbol} 補齊下載完成，資料已合併儲存至 {csv_path} 與 {db_path}")
+        print(f"更新後總資料筆數：{len(result_df)}")
     else:
         print(f"{symbol} 指定區間皆已存在，無需下載")
 

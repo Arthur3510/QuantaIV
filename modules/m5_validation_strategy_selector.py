@@ -1,19 +1,35 @@
 import os
 import pandas as pd
+from utils.version_manager import version_manager
 
 def main():
     """
     M5 策略挑選模組 (樣本外)
-    - 從 performance/out_sample 中挑選績效報告
+    - 從版本化的績效目錄中挑選績效報告
     - 篩選出最終的最佳策略
-    - 將結果存到 strategies/out_sample/best
+    - 將結果存到版本化的樣本外最佳策略目錄
     """
-    mode = 'out_sample'
+    print("【M5 樣本外策略選擇模組】")
     
-    # 根據模式設定路徑
-    perf_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'performance', mode)
-    strat_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', mode, 'best')
+    # 檢查並取得當前版本
+    current_version = version_manager.get_current_version()
+    if not current_version:
+        print("⚠️ 沒有當前版本，請先執行 M1 建立版本")
+        return
+    
+    print(f"使用版本: {current_version}")
+    
+    # 使用版本化的目錄路徑
+    perf_dir = version_manager.get_version_path(current_version, "trading_performance")
+    strat_dir = version_manager.get_version_path(current_version, "out_sample_best")
+    
+    # 建立最佳策略目錄
     os.makedirs(strat_dir, exist_ok=True)
+    
+    # 檢查績效檔案
+    if not os.path.exists(perf_dir):
+        print(f"版本目錄不存在: {perf_dir}")
+        return
 
     # 根據模式設定檔案過濾條件
     file_suffix = '_validation.csv'
@@ -33,6 +49,7 @@ def main():
     print('請選擇績效報告：')
     for idx, f in enumerate(files, 1):
         print(f'{idx}. {f}')
+    
     choice = input('請輸入檔案編號：').strip()
     try:
         idx = int(choice) - 1
@@ -74,7 +91,10 @@ def main():
     out_file_name = f'best_strategies_{perf_file.replace("performance_", "")}'
     out_file = os.path.join(strat_dir, out_file_name)
     df_sorted.to_csv(out_file, index=False)
-    print(f'已篩選出前{top_n}名最佳策略，存檔於 {out_file}')
+    
+    print(f'✅ 已篩選出前{top_n}名最佳策略')
+    print(f'📁 存檔於: {out_file}')
+    print(f'📂 版本目錄: {current_version}')
 
 if __name__ == '__main__':
     main() 

@@ -3,12 +3,31 @@ import pandas as pd
 from .m2_signal_generator_batch import generate_signals_df
 from datetime import datetime
 import json
+from utils.version_manager import version_manager
 
 def main():
-    strategies_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', 'in_sample', 'best')
-    param_logs_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'strategies', 'out_sample', 'param_logs')
-    signals_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'signals', 'out_sample')
+    print("【M4-1 樣本外訊號生成模組】")
+    
+    # 檢查並取得當前版本
+    current_version = version_manager.get_current_version()
+    if not current_version:
+        print("⚠️ 沒有當前版本，請先執行 M1 建立版本")
+        return
+    
+    print(f"使用版本: {current_version}")
+    
+    # 使用版本化的目錄路徑
+    strategies_dir = version_manager.get_version_path(current_version, "in_sample_best")
+    param_logs_dir = version_manager.get_version_path(current_version, "out_sample_params")
+    signals_dir = version_manager.get_version_path(current_version, "trading_signal")
+    
+    # 建立訊號目錄
     os.makedirs(signals_dir, exist_ok=True)
+    
+    # 檢查最佳策略檔案
+    if not os.path.exists(strategies_dir):
+        print(f"版本目錄不存在: {strategies_dir}")
+        return
     
     # 先找最佳策略清單
     strategy_files = [f for f in os.listdir(strategies_dir) if f.startswith('best_strategies_') and f.endswith('.csv')]
@@ -19,6 +38,7 @@ def main():
     print('請選擇最佳策略清單：')
     for idx, f in enumerate(strategy_files, 1):
         print(f'{idx}. {f}')
+    
     choice = input('請輸入檔案編號：').strip()
     try:
         idx = int(choice) - 1
@@ -42,13 +62,15 @@ def main():
     base_name = strategy_file.replace('best_strategies_', '').replace('_batch.csv', '')
     temp_name = base_name.split(f'_{strategy_type}_signals_all_params_')[0]
     symbol = temp_name
-
+    
+    print(f"處理策略: {strategy_type}, 股票: {symbol}")
+    
     # 精準定位唯一的 param_log 檔案
     param_log_file = f'param_log_{strategy_type}_{symbol}.json'
     param_log_path = os.path.join(param_logs_dir, param_log_file)
     
     if not os.path.exists(param_log_path):
-        print(f'找不到對應的參數檔案：{param_log_path}')
+        print(f'❌ 找不到對應的參數檔案：{param_log_path}')
         return
         
     # 讀取已經被 M3 過濾好的參數檔案
@@ -61,8 +83,8 @@ def main():
     all_signals = []
     print(f'開始產生 {len(param_list)} 組參數的訊號...')
     
-    for param in param_list:
-        print(f'處理參數 {param["id"]}...')
+    for i, param in enumerate(param_list, 1):
+        print(f'處理參數 {param["id"]}... ({i}/{len(param_list)})')
         
         # 將 symbol, date, 和 param_id 加入到要傳遞的參數字典中
         pass_params = param.copy()
@@ -75,10 +97,10 @@ def main():
 
         if signals_df is not None:
             all_signals.append(signals_df)
-            print(f'完成參數 {param["id"]} 的訊號產生')
+            print(f'✅ 完成參數 {param["id"]} 的訊號產生')
     
     if not all_signals:
-        print('沒有成功產生任何 signals！')
+        print('❌ 沒有成功產生任何 signals！')
         return
         
     df_all = pd.concat(all_signals, ignore_index=False)
@@ -87,7 +109,10 @@ def main():
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     out_file = os.path.join(signals_dir, f'{symbol}_{strategy_type}_signals_all_params_{timestamp}_validation.csv')
     df_all.to_csv(out_file, index=False)
-    print(f'已產生 {len(all_signals)} 組 signals，存檔於 {out_file}')
+    
+    print(f'✅ 已產生 {len(all_signals)} 組 signals')
+    print(f'📁 存檔於: {out_file}')
+    print(f'📂 版本目錄: {current_version}')
 
 if __name__ == '__main__':
     main() 
