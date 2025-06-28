@@ -94,136 +94,177 @@ def get_stock_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
 
 
 def download_stock_data(symbol, start_date, end_date, download_delay=2, date_chunk_size=180):
-    # 修正日期輸入檢查
-    try:
-        start = datetime.strptime(start_date, '%Y-%m-%d')
-    except ValueError:
-        print(f"起始日期 {start_date} 無效，請重新輸入")
-        return
-    try:
-        end = datetime.strptime(end_date, '%Y-%m-%d')
-    except ValueError:
-        # 若日期無效，自動調整為該月最後一天
-        year, month, _ = map(int, end_date.split('-'))
-        import calendar
-        last_day = calendar.monthrange(year, month)[1]
-        end_date = f"{year:04d}-{month:02d}-{last_day:02d}"
-        end = datetime.strptime(end_date, '%Y-%m-%d')
-        print(f"結束日期無效，已自動調整為 {end_date}")
+    # 處理多個股票代碼
+    symbols = [s.strip() for s in symbol.split(',')]
+    
+    for single_symbol in symbols:
+        print(f"\n處理股票：{single_symbol}")
+        # 修正日期輸入檢查
+        try:
+            start = datetime.strptime(start_date, '%Y-%m-%d')
+        except ValueError:
+            print(f"起始日期 {start_date} 無效，請重新輸入")
+            return
+        try:
+            end = datetime.strptime(end_date, '%Y-%m-%d')
+        except ValueError:
+            # 若日期無效，自動調整為該月最後一天
+            year, month, _ = map(int, end_date.split('-'))
+            import calendar
+            last_day = calendar.monthrange(year, month)[1]
+            end_date = f"{year:04d}-{month:02d}-{last_day:02d}"
+            end = datetime.strptime(end_date, '%Y-%m-%d')
+            print(f"結束日期無效，已自動調整為 {end_date}")
 
-    # 先讀取現有 CSV 資料
-    csv_path = f'data_csv/{symbol}.csv'
-    if os.path.exists(csv_path):
-        existing_df = pd.read_csv(csv_path, parse_dates=['date'])
-        existing_dates = set(existing_df['date'].dt.strftime('%Y-%m-%d'))
-        print(f"現有資料日期範圍：{existing_df['date'].min()} 到 {existing_df['date'].max()}")
-        print(f"現有資料筆數：{len(existing_df)}")
-    else:
-        existing_df = None
-        existing_dates = set()
-        print("無現有資料檔案")
+        # 先讀取現有 CSV 資料
+        csv_path = f'data_csv/{single_symbol}.csv'
+        if os.path.exists(csv_path):
+            existing_df = pd.read_csv(csv_path, parse_dates=['date'])
+            existing_dates = set(existing_df['date'].dt.strftime('%Y-%m-%d'))
+            print(f"現有資料日期範圍：{existing_df['date'].min()} 到 {existing_df['date'].max()}")
+            print(f"現有資料筆數：{len(existing_df)}")
+        else:
+            existing_df = None
+            existing_dates = set()
+            print("無現有資料檔案")
 
-    # 生成請求的日期範圍
-    requested_dates = set()
-    current_date = start
-    while current_date <= end:
-        requested_dates.add(current_date.strftime('%Y-%m-%d'))
-        current_date += timedelta(days=1)
-    
-    # 找出缺失的日期
-    missing_dates = requested_dates - existing_dates
-    if not missing_dates:
-        print(f"{symbol} 在 {start_date} 到 {end_date} 期間的所有資料都已存在")
-        return
-    
-    print(f"需要下載的日期數量：{len(missing_dates)}")
-    print(f"缺失日期範圍：{min(missing_dates)} 到 {max(missing_dates)}")
+        # 生成請求的日期範圍
+        requested_dates = set()
+        current_date = start
+        while current_date <= end:
+            requested_dates.add(current_date.strftime('%Y-%m-%d'))
+            current_date += timedelta(days=1)
+        
+        # 找出缺失的日期
+        missing_dates = requested_dates - existing_dates
+        if not missing_dates:
+            print(f"{single_symbol} 在 {start_date} 到 {end_date} 期間的所有資料都已存在")
+            continue
+        
+        print(f"需要下載的日期數量：{len(missing_dates)}")
+        print(f"缺失日期範圍：{min(missing_dates)} 到 {max(missing_dates)}")
 
-    # 按時間區間下載缺失的資料
-    current = start
-    all_df = []
-    
-    # 使用更小的時間區間來避免 API 限制
-    chunk_size = min(date_chunk_size, 30)  # 限制最大區間為 30 天
-    
-    while current <= end:
-        chunk_end = min(current + timedelta(days=chunk_size-1), end)
-        chunk_start_str = current.strftime('%Y-%m-%d')
-        chunk_end_str = chunk_end.strftime('%Y-%m-%d')
+        # 按時間區間下載缺失的資料
+        current = start
+        all_df = []
         
-        # 檢查這個區間是否有缺失的日期
-        chunk_dates = set()
-        temp_date = current
-        while temp_date <= chunk_end:
-            chunk_dates.add(temp_date.strftime('%Y-%m-%d'))
-            temp_date += timedelta(days=1)
+        # 使用更小的時間區間來避免 API 限制
+        chunk_size = min(date_chunk_size, 30)  # 限制最大區間為 30 天
         
-        missing_in_chunk = chunk_dates & missing_dates
-        
-        if missing_in_chunk:
-            try:
-                df = get_stock_data(symbol, chunk_start_str, chunk_end_str)
-                if not df.empty:
-                    # 只保留真正缺失的日期
-                    df = df[df['date'].isin(missing_dates)]
+        while current <= end:
+            chunk_end = min(current + timedelta(days=chunk_size-1), end)
+            chunk_start_str = current.strftime('%Y-%m-%d')
+            chunk_end_str = chunk_end.strftime('%Y-%m-%d')
+            
+            # 檢查這個區間是否有缺失的日期
+            chunk_dates = set()
+            temp_date = current
+            while temp_date <= chunk_end:
+                chunk_dates.add(temp_date.strftime('%Y-%m-%d'))
+                temp_date += timedelta(days=1)
+            
+            missing_in_chunk = chunk_dates & missing_dates
+            
+            if missing_in_chunk:
+                try:
+                    df = get_stock_data(single_symbol, chunk_start_str, chunk_end_str)
                     if not df.empty:
-                        all_df.append(df)
-                        print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 補齊 {len(df)} 筆")
+                        # 只保留真正缺失的日期
+                        df = df[df['date'].isin(missing_dates)]
+                        if not df.empty:
+                            all_df.append(df)
+                            print(f"下載 {single_symbol}：{chunk_start_str} ~ {chunk_end_str} 補齊 {len(df)} 筆")
+                        else:
+                            print(f"{single_symbol}：{chunk_start_str} ~ {chunk_end_str} 無新資料")
                     else:
-                        print(f"{symbol}：{chunk_start_str} ~ {chunk_end_str} 無新資料")
-                else:
-                    print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 無資料")
-            except Exception as e:
-                print(f"下載 {symbol}：{chunk_start_str} ~ {chunk_end_str} 發生錯誤：{e}")
-        else:
-            print(f"{symbol}：{chunk_start_str} ~ {chunk_end_str} 已存在，略過")
+                        print(f"下載 {single_symbol}：{chunk_start_str} ~ {chunk_end_str} 無資料")
+                except Exception as e:
+                    print(f"下載 {single_symbol}：{chunk_start_str} ~ {chunk_end_str} 發生錯誤：{e}")
+            else:
+                print(f"{single_symbol}：{chunk_start_str} ~ {chunk_end_str} 已存在，略過")
+            
+            time.sleep(download_delay)
+            current = chunk_end + timedelta(days=1)
         
-        time.sleep(download_delay)
-        current = chunk_end + timedelta(days=1)
-    
-    # 合併新舊資料
-    if all_df:
-        new_df = pd.concat(all_df) if len(all_df) > 1 else all_df[0]
-        new_df['date'] = pd.to_datetime(new_df['date'])  # 確保新資料的日期格式正確
-        if existing_df is not None:
-            existing_df['date'] = pd.to_datetime(existing_df['date']) # 確保舊資料的日期格式正確
-            result_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['date']).sort_values('date')
+        # 合併新舊資料
+        if all_df:
+            new_df = pd.concat(all_df) if len(all_df) > 1 else all_df[0]
+            new_df['date'] = pd.to_datetime(new_df['date'])  # 確保新資料的日期格式正確
+            if existing_df is not None:
+                existing_df['date'] = pd.to_datetime(existing_df['date']) # 確保舊資料的日期格式正確
+                result_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['date']).sort_values('date')
+            else:
+                result_df = new_df.sort_values('date')
+            # 儲存至 CSV
+            os.makedirs('data_csv', exist_ok=True)
+            result_df.to_csv(csv_path, index=False)
+            # 儲存至 SQLite
+            os.makedirs('database', exist_ok=True)
+            db_path = 'database/stock_price.db'
+            conn = sqlite3.connect(db_path)
+            result_df['date'] = result_df['date'].astype(str)  # 確保是純字串
+            result_df.to_sql(single_symbol, conn, if_exists='replace', index=False)  # 不要設 index
+            conn.close()
+            print(f"{single_symbol} 補齊下載完成，資料已合併儲存至 {csv_path} 與 {db_path}")
+            print(f"更新後總資料筆數：{len(result_df)}")
         else:
-            result_df = new_df.sort_values('date')
-        # 儲存至 CSV
-        os.makedirs('data_csv', exist_ok=True)
-        result_df.to_csv(csv_path, index=False)
-        # 儲存至 SQLite
-        os.makedirs('database', exist_ok=True)
-        db_path = 'database/stock_price.db'
-        conn = sqlite3.connect(db_path)
-        result_df['date'] = result_df['date'].astype(str)  # 確保是純字串
-        result_df.to_sql(symbol, conn, if_exists='replace', index=False)  # 不要設 index
-        conn.close()
-        print(f"{symbol} 補齊下載完成，資料已合併儲存至 {csv_path} 與 {db_path}")
-        print(f"更新後總資料筆數：{len(result_df)}")
-    else:
-        print(f"{symbol} 指定區間皆已存在，無需下載")
+            print(f"{single_symbol} 指定區間皆已存在，無需下載")
 
 
 def load_stock_data(symbol, start_date, end_date, source='csv'):
-    if source == 'csv':
-        csv_path = f'data_csv/{symbol}.csv'
-        if not os.path.exists(csv_path):
-            raise FileNotFoundError(f"CSV 檔案 {csv_path} 不存在")
-        df = pd.read_csv(csv_path, parse_dates=['date'])
-        df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
-    elif source == 'sqlite':
-        db_path = 'database/stock_price.db'
-        if not os.path.exists(db_path):
-            raise FileNotFoundError(f"SQLite 資料庫 {db_path} 不存在")
-        conn = sqlite3.connect(db_path)
-        df = pd.read_sql(f"SELECT * FROM {symbol}", conn, parse_dates=['date'])
-        conn.close()
-        df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+    # 處理多個股票代碼
+    symbols = [s.strip() for s in symbol.split(',')]
+    
+    if len(symbols) == 1:
+        # 單一股票
+        single_symbol = symbols[0]
+        if source == 'csv':
+            csv_path = f'data_csv/{single_symbol}.csv'
+            if not os.path.exists(csv_path):
+                raise FileNotFoundError(f"CSV 檔案 {csv_path} 不存在")
+            df = pd.read_csv(csv_path, parse_dates=['date'])
+            df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+        elif source == 'sqlite':
+            db_path = 'database/stock_price.db'
+            if not os.path.exists(db_path):
+                raise FileNotFoundError(f"SQLite 資料庫 {db_path} 不存在")
+            conn = sqlite3.connect(db_path)
+            df = pd.read_sql(f"SELECT * FROM {single_symbol}", conn, parse_dates=['date'])
+            conn.close()
+            df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+        else:
+            raise ValueError("資料來源必須為 'csv' 或 'sqlite'")
+        return df
     else:
-        raise ValueError("資料來源必須為 'csv' 或 'sqlite'")
-    return df
+        # 多個股票 - 返回字典，鍵為股票代碼
+        result = {}
+        for single_symbol in symbols:
+            try:
+                if source == 'csv':
+                    csv_path = f'data_csv/{single_symbol}.csv'
+                    if not os.path.exists(csv_path):
+                        print(f"警告：CSV 檔案 {csv_path} 不存在，跳過 {single_symbol}")
+                        continue
+                    df = pd.read_csv(csv_path, parse_dates=['date'])
+                    df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+                elif source == 'sqlite':
+                    db_path = 'database/stock_price.db'
+                    if not os.path.exists(db_path):
+                        print(f"警告：SQLite 資料庫 {db_path} 不存在，跳過 {single_symbol}")
+                        continue
+                    conn = sqlite3.connect(db_path)
+                    df = pd.read_sql(f"SELECT * FROM {single_symbol}", conn, parse_dates=['date'])
+                    conn.close()
+                    df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+                else:
+                    raise ValueError("資料來源必須為 'csv' 或 'sqlite'")
+                
+                result[single_symbol] = df
+            except Exception as e:
+                print(f"載入 {single_symbol} 資料時發生錯誤：{e}")
+                continue
+        
+        return result
 
 
 if __name__ == "__main__":

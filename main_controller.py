@@ -43,7 +43,32 @@ def main():
             
             download_stock_data(symbol, start_date, end_date, download_delay, date_chunk_size)
             df = load_stock_data(symbol, start_date, end_date, source='csv')
-            print(df.head())
+            
+            # 處理多個股票的返回結果
+            if isinstance(df, dict):
+                # 多個股票的情況
+                print(f"\n=== 載入完成，共 {len(df)} 個股票 ===")
+                for stock_symbol, stock_df in df.items():
+                    if not stock_df.empty:
+                        print(f"\n{stock_symbol} 資料摘要：")
+                        print(f"  資料筆數：{len(stock_df)}")
+                        print(f"  日期範圍：{stock_df['date'].min()} 到 {stock_df['date'].max()}")
+                        print(f"  價格範圍：${stock_df['close'].min():.2f} - ${stock_df['close'].max():.2f}")
+                        print(f"  最新收盤價：${stock_df['close'].iloc[-1]:.2f}")
+                    else:
+                        print(f"\n{stock_symbol}：無資料")
+            else:
+                # 單一股票的情況
+                if not df.empty:
+                    print(f"\n=== 載入完成 ===")
+                    print(f"資料筆數：{len(df)}")
+                    print(f"日期範圍：{df['date'].min()} 到 {df['date'].max()}")
+                    print(f"價格範圍：${df['close'].min():.2f} - ${df['close'].max():.2f}")
+                    print(f"最新收盤價：${df['close'].iloc[-1]:.2f}")
+                    print("\n前5筆資料：")
+                    print(df.head())
+                else:
+                    print("無資料載入")
         elif choice == "2":
             print("\n【M1 參數生成模組】")
             m1_main()
