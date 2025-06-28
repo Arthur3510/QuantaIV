@@ -80,57 +80,71 @@ def main():
         print(f'{strategies_dir} 目錄下沒有 param_log_*.json 檔案！')
         return
     
-    print('請選擇要批次產生 signals 的 param_log 檔案：')
+    print('請選擇要批次產生 signals 的 param_log 檔案（可輸入多個編號，用逗號分隔）：')
     for idx, f in enumerate(files, 1):
         print(f'{idx}. {f}')
     
-    choice = input('請輸入檔案編號：').strip()
+    choice_input = input('請輸入檔案編號：').strip()
+    
+    # 處理多個檔案編號
     try:
-        idx = int(choice) - 1
-        if idx < 0 or idx >= len(files):
-            raise ValueError
+        choice_indices = [int(x.strip()) - 1 for x in choice_input.split(',')]
+        selected_files = []
+        for idx in choice_indices:
+            if 0 <= idx < len(files):
+                selected_files.append(files[idx])
+            else:
+                print(f'警告：檔案編號 {idx + 1} 超出範圍，已忽略')
+        
+        if not selected_files:
+            print('沒有選擇任何有效檔案，結束。')
+            return
+            
     except Exception:
         print('輸入錯誤，結束。')
         return
     
-    param_file = files[idx]
-    strategy_type = param_file.split('_')[2] # 從檔名解析策略類型
-    symbol = param_file.split('_')[-1].replace('.json', '')
-    
-    print(f"處理策略: {strategy_type}, 股票: {symbol}")
-    
-    with open(os.path.join(strategies_dir, param_file), 'r', encoding='utf-8') as f:
-        param_list = json.load(f)
-    
+    # 取得日期範圍（所有檔案使用相同的日期範圍）
     start_date = input('請輸入起始日期（YYYY-MM-DD）：').strip()
     end_date = input('請輸入結束日期（YYYY-MM-DD）：').strip()
     
-    print(f"\n開始為 {len(param_list)} 組參數產生訊號...")
-    
-    all_signals = []
-    for i, param in enumerate(param_list, 1):
-        param['symbol'] = symbol
-        # 將 start_date 和 end_date 傳遞給 generate_signals_df
-        signals_df = generate_signals_df(param, strategy_type, start_date, end_date)
-        if signals_df is not None:
-            all_signals.append(signals_df)
+    # 處理每個選中的檔案
+    for param_file in selected_files:
+        strategy_type = param_file.split('_')[2] # 從檔名解析策略類型
+        symbol = param_file.split('_')[-1].replace('.json', '')
         
-        if i % 10 == 0:
-            print(f"進度: {i}/{len(param_list)}")
+        print(f"\n處理策略: {strategy_type}, 股票: {symbol}")
+        
+        with open(os.path.join(strategies_dir, param_file), 'r', encoding='utf-8') as f:
+            param_list = json.load(f)
+        
+        print(f"開始為 {len(param_list)} 組參數產生訊號...")
+        
+        all_signals = []
+        for i, param in enumerate(param_list, 1):
+            param['symbol'] = symbol
+            # 將 start_date 和 end_date 傳遞給 generate_signals_df
+            signals_df = generate_signals_df(param, strategy_type, start_date, end_date)
+            if signals_df is not None:
+                all_signals.append(signals_df)
+            
+            if i % 10 == 0:
+                print(f"進度: {i}/{len(param_list)}")
+        
+        if not all_signals:
+            print(f'沒有成功產生 {symbol} 的任何 signals！')
+            continue
+        
+        df_all = pd.concat(all_signals, ignore_index=False)
+        df_all.reset_index(inplace=True)
+        
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        out_file = os.path.join(signals_dir, f'{symbol}_{strategy_type}_signals_all_params_{timestamp}.csv')
+        df_all.to_csv(out_file, index=False)
+        
+        print(f'✅ 已產生 {len(param_list)} 組 {symbol} signals')
+        print(f'📁 存檔於: {out_file}')
     
-    if not all_signals:
-        print('沒有成功產生任何 signals！')
-        return
-    
-    df_all = pd.concat(all_signals, ignore_index=False)
-    df_all.reset_index(inplace=True)
-    
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    out_file = os.path.join(signals_dir, f'{symbol}_{strategy_type}_signals_all_params_{timestamp}.csv')
-    df_all.to_csv(out_file, index=False)
-    
-    print(f'✅ 已產生 {len(param_list)} 組 signals')
-    print(f'📁 存檔於: {out_file}')
     print(f'📂 版本目錄: {current_version}')
 
 if __name__ == '__main__':
