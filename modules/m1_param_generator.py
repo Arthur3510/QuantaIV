@@ -119,10 +119,13 @@ def main():
     else:
         print(f"使用當前版本: {current_version}")
     
-    symbol = input("請輸入股票代碼（例如 AAPL,TSLA）：\n> ").strip().upper()
-    if not symbol:
+    symbol_input = input("請輸入股票代碼（例如 AAPL,TSLA）：\n> ").strip().upper()
+    if not symbol_input:
         print("股票代碼不能為空！")
         return
+    
+    # 處理多個股票代碼
+    symbols = [s.strip() for s in symbol_input.split(',')]
     
     mode = 'in_sample' # M1 固定為 in_sample 模式
     
@@ -154,19 +157,22 @@ def main():
     print("\n3️⃣ 使用者執行過程與結束畫面")
     print("⏳ 執行中\n")
     
-    print(f"[INFO] 為 {symbol} 產生 {strategy_type} 參數組合...")
-    params = generate_func(n_params)
-    print(f"⮑ 產出 {len(params)} 組 param_id + param_dict")
-    
-    print(f"⏳ 暫停 {delay} 秒...")
-    time.sleep(delay)
-    
-    param_log_file, map_file = save_params(symbol, strategy_type, params, mode)
-    print(f"✅ {symbol} 產生完成\n")
+    # 為每個股票生成參數
+    for symbol in symbols:
+        print(f"[INFO] 為 {symbol} 產生 {strategy_type} 參數組合...")
+        params = generate_func(n_params)
+        print(f"⮑ 產出 {len(params)} 組 param_id + param_dict")
+        
+        print(f"⏳ 暫停 {delay} 秒...")
+        time.sleep(delay)
+        
+        param_log_file, map_file = save_params(symbol, strategy_type, params, mode)
+        print(f"✅ {symbol} 產生完成\n")
     
     print("📁 產出完成：")
-    print(f"✔️ {os.path.basename(param_log_file)}")
-    print(f"✔️ {os.path.basename(map_file)}")
+    for symbol in symbols:
+        print(f"✔️ param_log_{strategy_type}_{symbol}.json")
+        print(f"✔️ signal_param_map_{strategy_type}_{symbol}.json")
     print(f"📂 版本目錄: {current_version}")
 
 if __name__ == "__main__":

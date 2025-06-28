@@ -1,0 +1,702 @@
+{
+  "CROSS_96e33589_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 52,
+    "stop_loss": 0.0373969355363922,
+    "take_profit": 0.03590682740911132,
+    "id": "CROSS_96e33589_20250629_005336"
+  },
+  "CROSS_bfaf719d_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 48,
+    "stop_loss": 0.054155599376103945,
+    "take_profit": 0.10567517346118994,
+    "id": "CROSS_bfaf719d_20250629_005336"
+  },
+  "CROSS_8da54393_20250629_005336": {
+    "fast_period": 13,
+    "slow_period": 23,
+    "stop_loss": 0.07693140648874273,
+    "take_profit": 0.11156683965169913,
+    "id": "CROSS_8da54393_20250629_005336"
+  },
+  "CROSS_0cec87b4_20250629_005336": {
+    "fast_period": 5,
+    "slow_period": 45,
+    "stop_loss": 0.09232037448991681,
+    "take_profit": 0.17797308991633398,
+    "id": "CROSS_0cec87b4_20250629_005336"
+  },
+  "CROSS_b7cf14e1_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 44,
+    "stop_loss": 0.06769323699929612,
+    "take_profit": 0.047720678233146054,
+    "id": "CROSS_b7cf14e1_20250629_005336"
+  },
+  "CROSS_dec7b4ba_20250629_005336": {
+    "fast_period": 19,
+    "slow_period": 42,
+    "stop_loss": 0.017310213165108272,
+    "take_profit": 0.17499075104322895,
+    "id": "CROSS_dec7b4ba_20250629_005336"
+  },
+  "CROSS_6a60cfd1_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 51,
+    "stop_loss": 0.010289896842116616,
+    "take_profit": 0.03050775380603654,
+    "id": "CROSS_6a60cfd1_20250629_005336"
+  },
+  "CROSS_94f611e5_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 34,
+    "stop_loss": 0.0707072313139403,
+    "take_profit": 0.08399017673770454,
+    "id": "CROSS_94f611e5_20250629_005336"
+  },
+  "CROSS_24e8f174_20250629_005336": {
+    "fast_period": 11,
+    "slow_period": 53,
+    "stop_loss": 0.06403198936652814,
+    "take_profit": 0.15361734240582572,
+    "id": "CROSS_24e8f174_20250629_005336"
+  },
+  "CROSS_6d97f0ca_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 40,
+    "stop_loss": 0.020634126223078114,
+    "take_profit": 0.12778616107195578,
+    "id": "CROSS_6d97f0ca_20250629_005336"
+  },
+  "CROSS_a257d9d0_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 45,
+    "stop_loss": 0.08069894925603696,
+    "take_profit": 0.19241243183215642,
+    "id": "CROSS_a257d9d0_20250629_005336"
+  },
+  "CROSS_3e4a2a21_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 49,
+    "stop_loss": 0.06877559965089756,
+    "take_profit": 0.09960619240190816,
+    "id": "CROSS_3e4a2a21_20250629_005336"
+  },
+  "CROSS_caa306ca_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 52,
+    "stop_loss": 0.07110366355240096,
+    "take_profit": 0.1832468845849721,
+    "id": "CROSS_caa306ca_20250629_005336"
+  },
+  "CROSS_d2d1b2ad_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 26,
+    "stop_loss": 0.08532014846430473,
+    "take_profit": 0.1707205651598209,
+    "id": "CROSS_d2d1b2ad_20250629_005336"
+  },
+  "CROSS_b9f0df69_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 34,
+    "stop_loss": 0.018137871035542354,
+    "take_profit": 0.11849932250346742,
+    "id": "CROSS_b9f0df69_20250629_005336"
+  },
+  "CROSS_74cbc835_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 51,
+    "stop_loss": 0.09070994225595216,
+    "take_profit": 0.17774915841204755,
+    "id": "CROSS_74cbc835_20250629_005336"
+  },
+  "CROSS_ea440969_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 58,
+    "stop_loss": 0.03498766342138434,
+    "take_profit": 0.15846764409600364,
+    "id": "CROSS_ea440969_20250629_005336"
+  },
+  "CROSS_2abe5e78_20250629_005336": {
+    "fast_period": 15,
+    "slow_period": 32,
+    "stop_loss": 0.06911101153664023,
+    "take_profit": 0.19974945908609365,
+    "id": "CROSS_2abe5e78_20250629_005336"
+  },
+  "CROSS_5c47c35c_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 58,
+    "stop_loss": 0.02669867615307569,
+    "take_profit": 0.11092031380278689,
+    "id": "CROSS_5c47c35c_20250629_005336"
+  },
+  "CROSS_d907bfec_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 31,
+    "stop_loss": 0.03228965482299725,
+    "take_profit": 0.10354534490136334,
+    "id": "CROSS_d907bfec_20250629_005336"
+  },
+  "CROSS_35e999f2_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 30,
+    "stop_loss": 0.0590544419191127,
+    "take_profit": 0.08166269938010735,
+    "id": "CROSS_35e999f2_20250629_005336"
+  },
+  "CROSS_3a3f85a9_20250629_005336": {
+    "fast_period": 19,
+    "slow_period": 57,
+    "stop_loss": 0.08746965875618841,
+    "take_profit": 0.0637241854793156,
+    "id": "CROSS_3a3f85a9_20250629_005336"
+  },
+  "CROSS_1c359bd2_20250629_005336": {
+    "fast_period": 17,
+    "slow_period": 23,
+    "stop_loss": 0.05767231080307591,
+    "take_profit": 0.06156304660092406,
+    "id": "CROSS_1c359bd2_20250629_005336"
+  },
+  "CROSS_c1250474_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 39,
+    "stop_loss": 0.030322892257724936,
+    "take_profit": 0.19832042877203512,
+    "id": "CROSS_c1250474_20250629_005336"
+  },
+  "CROSS_8afd31d2_20250629_005336": {
+    "fast_period": 17,
+    "slow_period": 54,
+    "stop_loss": 0.060207221060958126,
+    "take_profit": 0.19396379280411893,
+    "id": "CROSS_8afd31d2_20250629_005336"
+  },
+  "CROSS_bde00eda_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 50,
+    "stop_loss": 0.07656092767830316,
+    "take_profit": 0.1784510869481073,
+    "id": "CROSS_bde00eda_20250629_005336"
+  },
+  "CROSS_292bfaf3_20250629_005336": {
+    "fast_period": 14,
+    "slow_period": 55,
+    "stop_loss": 0.05182789064345506,
+    "take_profit": 0.15780129562126585,
+    "id": "CROSS_292bfaf3_20250629_005336"
+  },
+  "CROSS_ea08cda3_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 39,
+    "stop_loss": 0.012496959148533342,
+    "take_profit": 0.04186251467315995,
+    "id": "CROSS_ea08cda3_20250629_005336"
+  },
+  "CROSS_8977432d_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 58,
+    "stop_loss": 0.052087627102462605,
+    "take_profit": 0.10477759845054187,
+    "id": "CROSS_8977432d_20250629_005336"
+  },
+  "CROSS_8b368345_20250629_005336": {
+    "fast_period": 5,
+    "slow_period": 39,
+    "stop_loss": 0.09555134096755284,
+    "take_profit": 0.12555007081378064,
+    "id": "CROSS_8b368345_20250629_005336"
+  },
+  "CROSS_0c1a2f1a_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 44,
+    "stop_loss": 0.09618901135757389,
+    "take_profit": 0.1333048315429185,
+    "id": "CROSS_0c1a2f1a_20250629_005336"
+  },
+  "CROSS_94c79ea4_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 60,
+    "stop_loss": 0.042031225043159925,
+    "take_profit": 0.1943019296856455,
+    "id": "CROSS_94c79ea4_20250629_005336"
+  },
+  "CROSS_9fc86b77_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 32,
+    "stop_loss": 0.03749392321906528,
+    "take_profit": 0.15232566099334974,
+    "id": "CROSS_9fc86b77_20250629_005336"
+  },
+  "CROSS_d014fe62_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 50,
+    "stop_loss": 0.060048926428807395,
+    "take_profit": 0.04241982627565387,
+    "id": "CROSS_d014fe62_20250629_005336"
+  },
+  "CROSS_eca8a10b_20250629_005336": {
+    "fast_period": 13,
+    "slow_period": 26,
+    "stop_loss": 0.050810825972732086,
+    "take_profit": 0.12575171427372306,
+    "id": "CROSS_eca8a10b_20250629_005336"
+  },
+  "CROSS_fbb9674d_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 36,
+    "stop_loss": 0.08506536986667902,
+    "take_profit": 0.1259081664800813,
+    "id": "CROSS_fbb9674d_20250629_005336"
+  },
+  "CROSS_f752ed3c_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 31,
+    "stop_loss": 0.07455549893435931,
+    "take_profit": 0.10007050834380486,
+    "id": "CROSS_f752ed3c_20250629_005336"
+  },
+  "CROSS_43fe1145_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 56,
+    "stop_loss": 0.03609505078141162,
+    "take_profit": 0.021898517963811606,
+    "id": "CROSS_43fe1145_20250629_005336"
+  },
+  "CROSS_08f183fb_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 40,
+    "stop_loss": 0.0800494505859102,
+    "take_profit": 0.04153491345008402,
+    "id": "CROSS_08f183fb_20250629_005336"
+  },
+  "CROSS_2c817c7d_20250629_005336": {
+    "fast_period": 5,
+    "slow_period": 55,
+    "stop_loss": 0.0752290956297471,
+    "take_profit": 0.06497235230065881,
+    "id": "CROSS_2c817c7d_20250629_005336"
+  },
+  "CROSS_87f60e5f_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 46,
+    "stop_loss": 0.08189970672000949,
+    "take_profit": 0.1602866555166513,
+    "id": "CROSS_87f60e5f_20250629_005336"
+  },
+  "CROSS_270e61cf_20250629_005336": {
+    "fast_period": 12,
+    "slow_period": 47,
+    "stop_loss": 0.08964427523738741,
+    "take_profit": 0.08374366673156076,
+    "id": "CROSS_270e61cf_20250629_005336"
+  },
+  "CROSS_c36dd809_20250629_005336": {
+    "fast_period": 20,
+    "slow_period": 60,
+    "stop_loss": 0.07983940755502485,
+    "take_profit": 0.18117506224482763,
+    "id": "CROSS_c36dd809_20250629_005336"
+  },
+  "CROSS_3d14e7c5_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 27,
+    "stop_loss": 0.01492983980348531,
+    "take_profit": 0.040125860625168305,
+    "id": "CROSS_3d14e7c5_20250629_005336"
+  },
+  "CROSS_fa3a19b2_20250629_005336": {
+    "fast_period": 13,
+    "slow_period": 36,
+    "stop_loss": 0.07546367504505802,
+    "take_profit": 0.09149664020993548,
+    "id": "CROSS_fa3a19b2_20250629_005336"
+  },
+  "CROSS_b39d0a65_20250629_005336": {
+    "fast_period": 12,
+    "slow_period": 45,
+    "stop_loss": 0.03143792452428917,
+    "take_profit": 0.14567031583406384,
+    "id": "CROSS_b39d0a65_20250629_005336"
+  },
+  "CROSS_730882c2_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 47,
+    "stop_loss": 0.02394934770969638,
+    "take_profit": 0.09596824148899417,
+    "id": "CROSS_730882c2_20250629_005336"
+  },
+  "CROSS_5b9dc224_20250629_005336": {
+    "fast_period": 20,
+    "slow_period": 55,
+    "stop_loss": 0.030585611381049704,
+    "take_profit": 0.020966055748070953,
+    "id": "CROSS_5b9dc224_20250629_005336"
+  },
+  "CROSS_b0f166f7_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 23,
+    "stop_loss": 0.0857176932362286,
+    "take_profit": 0.12288722774647179,
+    "id": "CROSS_b0f166f7_20250629_005336"
+  },
+  "CROSS_634a5992_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 35,
+    "stop_loss": 0.06731128558125264,
+    "take_profit": 0.19899421571678066,
+    "id": "CROSS_634a5992_20250629_005336"
+  },
+  "CROSS_6ef9b3ca_20250629_005336": {
+    "fast_period": 13,
+    "slow_period": 39,
+    "stop_loss": 0.053888323874371466,
+    "take_profit": 0.042856603363297066,
+    "id": "CROSS_6ef9b3ca_20250629_005336"
+  },
+  "CROSS_b73556a4_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 44,
+    "stop_loss": 0.09383334377440829,
+    "take_profit": 0.1393096368684858,
+    "id": "CROSS_b73556a4_20250629_005336"
+  },
+  "CROSS_e9890da3_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 31,
+    "stop_loss": 0.08801199157504822,
+    "take_profit": 0.09741004224572213,
+    "id": "CROSS_e9890da3_20250629_005336"
+  },
+  "CROSS_ba132bd5_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 59,
+    "stop_loss": 0.0532241963994963,
+    "take_profit": 0.08867017981449704,
+    "id": "CROSS_ba132bd5_20250629_005336"
+  },
+  "CROSS_7946c93d_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 57,
+    "stop_loss": 0.03418129854789005,
+    "take_profit": 0.13754276551665404,
+    "id": "CROSS_7946c93d_20250629_005336"
+  },
+  "CROSS_7a31d261_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 57,
+    "stop_loss": 0.057094809352650086,
+    "take_profit": 0.13572986770825712,
+    "id": "CROSS_7a31d261_20250629_005336"
+  },
+  "CROSS_d845c4d4_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 59,
+    "stop_loss": 0.061645990674832646,
+    "take_profit": 0.10797330554279153,
+    "id": "CROSS_d845c4d4_20250629_005336"
+  },
+  "CROSS_9896d08b_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 56,
+    "stop_loss": 0.016259251068964448,
+    "take_profit": 0.19406168257543044,
+    "id": "CROSS_9896d08b_20250629_005336"
+  },
+  "CROSS_eb4f198e_20250629_005336": {
+    "fast_period": 17,
+    "slow_period": 49,
+    "stop_loss": 0.028342893816374663,
+    "take_profit": 0.05494058999181484,
+    "id": "CROSS_eb4f198e_20250629_005336"
+  },
+  "CROSS_7d2a2f0d_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 57,
+    "stop_loss": 0.07805039525144519,
+    "take_profit": 0.19063585604417582,
+    "id": "CROSS_7d2a2f0d_20250629_005336"
+  },
+  "CROSS_3481a974_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 22,
+    "stop_loss": 0.09910434283186638,
+    "take_profit": 0.12690446223937776,
+    "id": "CROSS_3481a974_20250629_005336"
+  },
+  "CROSS_70d1bb16_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 28,
+    "stop_loss": 0.053184955319523296,
+    "take_profit": 0.13210062348771268,
+    "id": "CROSS_70d1bb16_20250629_005336"
+  },
+  "CROSS_59b4773c_20250629_005336": {
+    "fast_period": 14,
+    "slow_period": 58,
+    "stop_loss": 0.03739230304486696,
+    "take_profit": 0.15609631735664783,
+    "id": "CROSS_59b4773c_20250629_005336"
+  },
+  "CROSS_72e8086f_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 24,
+    "stop_loss": 0.07957301535020833,
+    "take_profit": 0.0444856133182312,
+    "id": "CROSS_72e8086f_20250629_005336"
+  },
+  "CROSS_87dda47c_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 55,
+    "stop_loss": 0.06950611665691224,
+    "take_profit": 0.1748557821782138,
+    "id": "CROSS_87dda47c_20250629_005336"
+  },
+  "CROSS_826efff3_20250629_005336": {
+    "fast_period": 5,
+    "slow_period": 34,
+    "stop_loss": 0.019385604447275447,
+    "take_profit": 0.1829083490021687,
+    "id": "CROSS_826efff3_20250629_005336"
+  },
+  "CROSS_460f1379_20250629_005336": {
+    "fast_period": 13,
+    "slow_period": 54,
+    "stop_loss": 0.017178483121395922,
+    "take_profit": 0.074920014942702,
+    "id": "CROSS_460f1379_20250629_005336"
+  },
+  "CROSS_05c152ed_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 43,
+    "stop_loss": 0.023634348193703133,
+    "take_profit": 0.05090113188666026,
+    "id": "CROSS_05c152ed_20250629_005336"
+  },
+  "CROSS_5c9b10e4_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 32,
+    "stop_loss": 0.031475933953990405,
+    "take_profit": 0.08696693387479988,
+    "id": "CROSS_5c9b10e4_20250629_005336"
+  },
+  "CROSS_1a0c8640_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 42,
+    "stop_loss": 0.08476552712809943,
+    "take_profit": 0.16123596851808952,
+    "id": "CROSS_1a0c8640_20250629_005336"
+  },
+  "CROSS_2569bbd7_20250629_005336": {
+    "fast_period": 13,
+    "slow_period": 40,
+    "stop_loss": 0.020058270399225538,
+    "take_profit": 0.03508953369539443,
+    "id": "CROSS_2569bbd7_20250629_005336"
+  },
+  "CROSS_67819996_20250629_005336": {
+    "fast_period": 17,
+    "slow_period": 27,
+    "stop_loss": 0.0456459093020283,
+    "take_profit": 0.1722375648128015,
+    "id": "CROSS_67819996_20250629_005336"
+  },
+  "CROSS_217791c5_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 22,
+    "stop_loss": 0.08647819718726948,
+    "take_profit": 0.0900693174286891,
+    "id": "CROSS_217791c5_20250629_005336"
+  },
+  "CROSS_c17ce86e_20250629_005336": {
+    "fast_period": 17,
+    "slow_period": 55,
+    "stop_loss": 0.09026268669024488,
+    "take_profit": 0.08738703644490087,
+    "id": "CROSS_c17ce86e_20250629_005336"
+  },
+  "CROSS_b26a4ed1_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 60,
+    "stop_loss": 0.06853972621655598,
+    "take_profit": 0.15605980985725854,
+    "id": "CROSS_b26a4ed1_20250629_005336"
+  },
+  "CROSS_f6840689_20250629_005336": {
+    "fast_period": 19,
+    "slow_period": 32,
+    "stop_loss": 0.09784822201696794,
+    "take_profit": 0.15166443034630347,
+    "id": "CROSS_f6840689_20250629_005336"
+  },
+  "CROSS_4ba6e0db_20250629_005336": {
+    "fast_period": 8,
+    "slow_period": 60,
+    "stop_loss": 0.024897296874568015,
+    "take_profit": 0.12140962468148356,
+    "id": "CROSS_4ba6e0db_20250629_005336"
+  },
+  "CROSS_1c44ffaa_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 21,
+    "stop_loss": 0.07841604962327339,
+    "take_profit": 0.05008404618760737,
+    "id": "CROSS_1c44ffaa_20250629_005336"
+  },
+  "CROSS_2d396c84_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 39,
+    "stop_loss": 0.027826497261667263,
+    "take_profit": 0.19609307268517048,
+    "id": "CROSS_2d396c84_20250629_005336"
+  },
+  "CROSS_e2994048_20250629_005336": {
+    "fast_period": 15,
+    "slow_period": 46,
+    "stop_loss": 0.09435908754342678,
+    "take_profit": 0.1571551592053984,
+    "id": "CROSS_e2994048_20250629_005336"
+  },
+  "CROSS_33629557_20250629_005336": {
+    "fast_period": 19,
+    "slow_period": 54,
+    "stop_loss": 0.043247817341097984,
+    "take_profit": 0.12573890546921673,
+    "id": "CROSS_33629557_20250629_005336"
+  },
+  "CROSS_d2b8e087_20250629_005336": {
+    "fast_period": 12,
+    "slow_period": 25,
+    "stop_loss": 0.025052576372422877,
+    "take_profit": 0.07844452200016233,
+    "id": "CROSS_d2b8e087_20250629_005336"
+  },
+  "CROSS_a35aaefa_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 41,
+    "stop_loss": 0.08032901060448118,
+    "take_profit": 0.03579198275705399,
+    "id": "CROSS_a35aaefa_20250629_005336"
+  },
+  "CROSS_cf3f2dbb_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 50,
+    "stop_loss": 0.011839670665084276,
+    "take_profit": 0.15605002467438894,
+    "id": "CROSS_cf3f2dbb_20250629_005336"
+  },
+  "CROSS_1777c410_20250629_005336": {
+    "fast_period": 17,
+    "slow_period": 28,
+    "stop_loss": 0.09543645991985573,
+    "take_profit": 0.1532721787897551,
+    "id": "CROSS_1777c410_20250629_005336"
+  },
+  "CROSS_021befa4_20250629_005336": {
+    "fast_period": 16,
+    "slow_period": 31,
+    "stop_loss": 0.09341937980062598,
+    "take_profit": 0.05861010767143954,
+    "id": "CROSS_021befa4_20250629_005336"
+  },
+  "CROSS_04ba7a62_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 55,
+    "stop_loss": 0.03599341239124063,
+    "take_profit": 0.04993982707443689,
+    "id": "CROSS_04ba7a62_20250629_005336"
+  },
+  "CROSS_dbe50612_20250629_005336": {
+    "fast_period": 18,
+    "slow_period": 34,
+    "stop_loss": 0.06123296215013322,
+    "take_profit": 0.08371331360525455,
+    "id": "CROSS_dbe50612_20250629_005336"
+  },
+  "CROSS_cb9a2b77_20250629_005336": {
+    "fast_period": 19,
+    "slow_period": 37,
+    "stop_loss": 0.04793607047071239,
+    "take_profit": 0.19796409400459777,
+    "id": "CROSS_cb9a2b77_20250629_005336"
+  },
+  "CROSS_599d2a89_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 47,
+    "stop_loss": 0.046591349814005485,
+    "take_profit": 0.12673453820616076,
+    "id": "CROSS_599d2a89_20250629_005336"
+  },
+  "CROSS_62228eec_20250629_005336": {
+    "fast_period": 14,
+    "slow_period": 59,
+    "stop_loss": 0.04968098652515805,
+    "take_profit": 0.08489199395887549,
+    "id": "CROSS_62228eec_20250629_005336"
+  },
+  "CROSS_f760723b_20250629_005336": {
+    "fast_period": 10,
+    "slow_period": 42,
+    "stop_loss": 0.023356374124027836,
+    "take_profit": 0.06245474152885608,
+    "id": "CROSS_f760723b_20250629_005336"
+  },
+  "CROSS_c419815f_20250629_005336": {
+    "fast_period": 7,
+    "slow_period": 34,
+    "stop_loss": 0.049890954659463305,
+    "take_profit": 0.0799246471320275,
+    "id": "CROSS_c419815f_20250629_005336"
+  },
+  "CROSS_c4182429_20250629_005336": {
+    "fast_period": 11,
+    "slow_period": 40,
+    "stop_loss": 0.03931368881498736,
+    "take_profit": 0.038816149818286565,
+    "id": "CROSS_c4182429_20250629_005336"
+  },
+  "CROSS_a5040665_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 54,
+    "stop_loss": 0.08797334933500925,
+    "take_profit": 0.16291349659123505,
+    "id": "CROSS_a5040665_20250629_005336"
+  },
+  "CROSS_cb77e22f_20250629_005336": {
+    "fast_period": 9,
+    "slow_period": 40,
+    "stop_loss": 0.059174443490680274,
+    "take_profit": 0.14864283918520643,
+    "id": "CROSS_cb77e22f_20250629_005336"
+  },
+  "CROSS_e4f40844_20250629_005336": {
+    "fast_period": 12,
+    "slow_period": 55,
+    "stop_loss": 0.08395991665189023,
+    "take_profit": 0.07729602271786458,
+    "id": "CROSS_e4f40844_20250629_005336"
+  },
+  "CROSS_b16f3870_20250629_005336": {
+    "fast_period": 14,
+    "slow_period": 26,
+    "stop_loss": 0.05054699511875539,
+    "take_profit": 0.16727416111378052,
+    "id": "CROSS_b16f3870_20250629_005336"
+  },
+  "CROSS_97cf7f1b_20250629_005336": {
+    "fast_period": 15,
+    "slow_period": 28,
+    "stop_loss": 0.02164140329866477,
+    "take_profit": 0.14221988629761223,
+    "id": "CROSS_97cf7f1b_20250629_005336"
+  },
+  "CROSS_b15721ca_20250629_005336": {
+    "fast_period": 6,
+    "slow_period": 57,
+    "stop_loss": 0.021882261159272325,
+    "take_profit": 0.12060580792665412,
+    "id": "CROSS_b15721ca_20250629_005336"
+  }
+}
